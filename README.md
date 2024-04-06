@@ -1,1 +1,1 @@
-zad679446.gethub.io
+zad679446.github.io
