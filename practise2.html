@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>绘制图形</title>
+</head>
+<body>
+  <h3>三角形</h3>
+  <pre id="triangle"></pre>
+
+  <h3>平行四边形</h3>
+  <pre id="parallelogram"></pre>
+
+  <h3>菱形</h3>
+  <pre id="diamond"></pre>
+
+  <script>
+	  //219970539+张奥
+    // 输出5行的等边三角形
+    document.write("<h3>等边三角形</h3>");
+    
+	function fun1(numRows){
+    for (var i = 1; i <= numRows; i++) {
+      for (var j = 1; j <= numRows - i; j++) {
+        document.write("&nbsp;&nbsp;");
+      }
+      for (var k = 1; k <= 2 * i - 1; k++) {
+        document.write("*");
+      }
+      document.write("<br>");
+    }
+	
+	
+    //219970539+张奥
+    // 输出5行的平行四边形
+	
+    document.write("<h3>平行四边形</h3>");
+    for (var i = 1; i <= numRows; i++) {
+      for (var j = 1; j <= i - 1; j++) {
+        document.write("&nbsp;&nbsp;");
+      }
+      for (var k = 1; k <= numRows; k++) {
+        document.write("*");
+      }
+      document.write("<br>");
+    }
+    
+	//219970539+张奥
+    // 输出5行的菱形（选做）
+	var numRows1 = numRows/2;
+    document.write("<h3>菱形</h3>");
+    for (var i = 1; i <= numRows1; i++) {
+      for (var j = 1; j <= numRows1 - i; j++) {
+        document.write("&nbsp;&nbsp;");
+      }
+      for (var k = 1; k <= 2 * i - 1; k++) {
+        document.write("*");
+      }
+      document.write("<br>");
+    }
+    for (var i = numRows1 - 1; i >= 1; i--) {
+      for (var j = 1; j <= numRows1 - i; j++) {
+        document.write("&nbsp;&nbsp;");
+      }
+      for (var k = 1; k <= 2 * i - 1; k++) {
+        document.write("*");
+      }
+      document.write("<br>");
+    }
+	
+	}
+	var i=prompt();
+	fun1(i);
+  </script>
+</body>
+</html>
