@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>让坦克开起来</title>
+    <style type="text/css">
+        input{font-size:26px;margin-top: 20px;}
+        body{background-image: url(images/grassland.png);}
+        #mytank{position: absolute;left:10px;top:100px}
+        .bullet {
+            position: absolute;
+            width: 10px; /* 修改炮弹的大小 */
+            height: 10px; /* 修改炮弹的大小 */
+            background-color: #ff0000; /* 设置炮弹的颜色为红色 */
+            border-radius: 50%; /* 将炮弹显示为圆形 */
+        }
+    </style>
+</head>
+<body>       
+    <img id="mytank" src="images/right.png"/>
+
+    <script>
+        var tank = document.querySelector('#mytank');
+        var tankWidth = tank.width;
+        var tankHeight = tank.height;
+        var L = 10; // 初始位置
+        var T = 100; // 初始位置
+        var bullets = []; // 存储炮弹的数组
+
+        window.document.oncontextmenu = function(){
+            return false;
+        }
+
+        function moveTank(direction) {
+            switch(direction) {
+                case "up":
+                    if (T > 0) {
+                        T -= 10;
+                        tank.src = "images/up.png";
+                        tank.style.top = T + 'px';
+                    }
+                    break;
+                case "down":
+                    if (T < window.innerHeight - tankHeight) {
+                        T += 10;
+                        tank.src = "images/down.png";
+                        tank.style.top = T + 'px';
+                    }
+                    break;
+                case "left":
+                    if (L > 0) {
+                        L -= 10;
+                        tank.src = "images/left.png";
+                        tank.style.left = L + 'px';
+                    }
+                    break;
+                case "right":
+                    if (L < window.innerWidth - tankWidth) {
+                        L += 10;
+                        tank.src = "images/right.png";
+                        tank.style.left = L + 'px';
+                    }
+                    break;
+            }
+        }
+
+       function fireBullet(direction) {
+           var bullet = document.createElement('div');
+           bullet.className = 'bullet';
+           var bulletTop = T + (tankHeight / 2); // 设置炮弹的初始top位置为坦克中心位置
+           var bulletLeft = L + (tankWidth / 2); // 设置炮弹的初始left位置为坦克中心位置
+           bullet.style.top = bulletTop + 'px';
+           bullet.style.left = bulletLeft + 'px';
+           document.body.appendChild(bullet);
+
+           // 保存炮弹的相关信息，包括元素和射击方向
+           bullets.push({ element: bullet, direction: direction });
+       }
+
+function moveBullet() {
+    bullets.forEach(function(bulletInfo) {
+        var bullet = bulletInfo.element;
+        var direction = bulletInfo.direction;
+        var top = parseInt(bullet.style.top);
+        var left = parseInt(bullet.style.left);
+        if (direction === "up") {
+            bullet.style.top = (top - 2) + 'px';
+        } else if (direction === "down") {
+            bullet.style.top = (top + 2) + 'px';
+        } else if (direction === "left") {
+            bullet.style.left = (left - 2) + 'px';
+        } else if (direction === "right") {
+            bullet.style.left = (left + 2) + 'px';
+        }
+        if (top < 0 || top > window.innerHeight || left < 0 || left > window.innerWidth) {
+            document.body.removeChild(bullet);
+            bullets.splice(bullets.indexOf(bulletInfo), 1);
+        }
+    });
+    requestAnimationFrame(moveBullet); // 不断地调用自身，实现动画效果
+}
+
+// 控制坦克移动
+window.onkeydown = function(e){
+    switch(e.key){
+        case "w":
+        case 'ArrowUp':
+            moveTank('up');
+            break;
+        case "s":
+        case 'ArrowDown':
+            moveTank('down');
+            break;
+        case "a":
+        case 'ArrowLeft':
+            moveTank('left');
+            break;
+        case "d":
+        case 'ArrowRight':
+            moveTank('right');
+            break;
+        case " ":
+            fireBullet(getTankDirection()); // 当空格键按下时，根据坦克朝向发射炮弹
+            break;
+    }
+}
+
+// 获取坦克朝向
+function getTankDirection() {
+    if (tank.src.includes("up")) {
+        return "up";
+    } else if (tank.src.includes("down")) {
+        return "down";
+    } else if (tank.src.includes("left")) {
+        return "left";
+    } else if (tank.src.includes("right")) {
+        return "right";
+    }
+}
+
+// 自动发射炮弹
+function autoFire() {
+    fireBullet(getTankDirection()); // 根据坦克朝向发射炮弹
+    setTimeout(autoFire, 1000); // 每隔1秒自动发射一次炮弹
+}
+
+// 开始自动发射炮弹
+autoFire();
+
+// 开始移动炮弹
+moveBullet();
+    </script>
+</body>
+</html>
