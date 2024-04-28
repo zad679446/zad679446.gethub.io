@@ -1,0 +1,21 @@
+*{
+	margin:auto;  /* 居中 */
+	padding:0px;   /* 消除间距 */
+}
+.box_1{position:relative; 
+	width :758px;
+	height :3240px;
+	background-color: #789;
+	border-radius: 16px 40px;
+	border:solid 2px #f0f;/* 设置边框 */
+	padding:12px 3px 6px 9px;/* 内边距 上右下左 */
+	margin-top: 100px; 
+	}
+.box_1 img{
+	display:block;
+	margin:20px auto;
+}
+.box_1 p{
+	text-indent: 28px;
+	text-align:justify;/* 两端对齐 */
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>美化页面</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .web {
+            width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid #666666; /* 修改边框样式 */
+            background-color: #f2f2f2; /* 修改背景颜色 */
+			text-align: center; /* 让广告文案居中 */
+        }
+  #ad1, #ad2, #ad3 { /* 让广告容器也有一定的间距和背景色 */
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        #ad1, #ad2,#ad3 {
+            width: 100px;
+            height: 200px;
+            border: 2px solid #999999; /* 修改边框样式 */
+            background-color: #e0e0e0; /* 修改背景颜色 */
+        }
+
+        #ad1 {
+            
+        }
+
+        .ad-text {
+            margin-top: 20px; /* 给广告文案加上一定的上边距 */
+        }
+        img {
+            max-width: 100%; /* 让图片自适应容器宽度 */
+            height: auto;
+            display: block;
+        }
+
+        #close, #close1, #close3 {
+            width: 50px;
+            height: 50px;
+            background-color: #cccccc; /* 修改关闭按钮的背景颜色 */
+            cursor: pointer; /* 添加手型指针 */
+			
+        }
+ #close, #close1, #close3 {
+		            background-color: #cccccc; /* 修改关闭按钮的背景颜色 */
+		            
+		        }
+        /* 其他样式不变... */
+    </style>
+</head>
+<body>
+    <div id="ad1">
+        <img src="img/adverse.jpg" alt=""/>
+        <div id="close"></div>
+    </div>
+    <div class="web">
+        <img src="img/P0201908257010796036.jpg" alt=""/>
+       <p>重庆位于中国内陆西南部、长江上游地区。面积8.24万平方公里，辖38个区县（26区、8县、4自治县）。</p>
+       	<p>常住人口3102万人、城镇化率65.5%。人口以汉族为主，少数民族主要有土家族、苗族。地貌以丘陵、山地为主，其中山地占76%，有“山城”之称。
+       	属亚热带季风性湿润气候。长江横贯全境，流程691公里，与嘉陵江、乌江等河流交汇。旅游资源丰富，有长江三峡、世界文化遗产大足石刻、世界自然遗产武隆喀斯特和南川金佛山等壮丽景观。
+       	重庆是中国著名历史文化名城。有文字记载的历史达3000多年，是巴渝文化的发祥地。因嘉陵江古称“渝水”，故重庆又简称“渝”。北宋崇宁元年（1102年），改渝州为恭州。南宋淳熙16年（1189年），宋光宗赵敦先封恭王再即帝位，称为“双重喜庆”，遂升恭州为重庆府，重庆由此而得名。1891年，成为中国最早对外开埠的内陆通商口岸。1929年，正式建市。抗日战争时期，重庆是国民政府陪都和世界反法西斯战争远东指挥中心。抗日战争时期和解放战争初期，以周恩来同志为代表的中共中央南方局在重庆负责领导国统区、港澳及海外地区的党组织和统一战线工作，形成的“红岩精神”，是我们国家和民族的宝贵精神财富。民盟、民建、九三学社和民革前身之一的“三民主义同志联合会”均在重庆成立。重庆是中国中西部地区唯一直辖市。新中国建立初期，重庆为中央直辖市，是中共中央西南局、西南军政委员会驻地和西南地区政治、经济、文化中心。1954年，西南大区撤销后改为四川省辖市。1983年，成为全国第一个经济体制综合改革试点城市，实行计划单列。为带动西部地区及长江上游地区经济社会发展、统一规划实施百万三峡移民，1997年3月八届全国人大五次会议批准设立重庆直辖市。
+       </p>
+    </div>
+    <div id="ad2">
+        <img src="img/adverse.jpg" alt=""/>
+        <div id="close1"></div>
+    </div>
+    <div id="ad3">
+        <img src="img/adverse.jpg" alt=""/>
+        <div id="close3"></div>
+    </div>
+  <script type="text/javascript">
+          var close=document.querySelector("#close");
+          var close1=document.querySelector("#close1");
+          var close3=document.querySelector("#close3");
+          var ad1=document.getElementById('ad1');
+          var ad2=document.getElementById('ad2');
+  //        关闭左边
+  
+          close.onclick=function(){
+          ad1.style.display="none";
+          ad2.style.display="none";
+          
+          }
+  //        关闭右边   
+          close1.onclick=function(){
+          ad1.style.display="none";
+          ad2.style.display="none";
+      
+          
+          }
+  //        关闭弹窗广告        
+          close3.onclick=function(){
+          var ad3=document.getElementById('ad3');
+          ad3.style.display="none";
+          
+          
+          }
+  //1.5s弹出弹窗广告
+  window.onload=function(){//页面加载事件
+          var ad3=setTimeout(function(){
+          var ad3=document.getElementById('ad3');
+          ad3.style.display="inline"
+      },1500)
+          }
+      </script>
+</body>
+</html>
