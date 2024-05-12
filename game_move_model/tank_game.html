@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Tank Game</title>
+<style>
+  body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  #gameCanvas {
+    border: 1px solid black;
+    background-color: #ddd;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  var canvas = document.getElementById('gameCanvas');
+  var ctx = canvas.getContext('2d');
+  var tank = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    size: 50,
+    speed: 5,
+    angle: 0
+  };
+  var bullets = [];
+
+  function drawTank() {
+    ctx.save();
+    ctx.translate(tank.x, tank.y);
+    ctx.rotate(tank.angle);
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(-tank.size / 2, -tank.size / 2, tank.size, tank.size);
+    ctx.restore();
+  }
+
+  function drawBullets() {
+    ctx.fillStyle = 'red';
+    bullets.forEach(function(bullet) {
+      ctx.fillRect(bullet.x, bullet.y, 5, 5);
+    });
+  }
+
+  function moveTank(keyCode) {
+    switch(keyCode) {
+      case 37: // left
+        tank.angle -= 0.1;
+        break;
+      case 39: // right
+        tank.angle += 0.1;
+        break;
+      case 38: // up
+        tank.x += tank.speed * Math.sin(tank.angle);
+        tank.y -= tank.speed * Math.cos(tank.angle);
+        break;
+      case 40: // down
+        tank.x -= tank.speed * Math.sin(tank.angle);
+        tank.y += tank.speed * Math.cos(tank.angle);
+        break;
+    }
+  }
+
+  function fireBullet() {
+    var bullet = {
+      x: tank.x + tank.size / 2 * Math.sin(tank.angle),
+      y: tank.y - tank.size / 2 * Math.cos(tank.angle),
+      angle: tank.angle,
+      speed: 10
+    };
+    bullets.push(bullet);
+  }
+
+  function updateBullets() {
+    for (var i = bullets.length - 1; i >= 0; i--) {
+      bullets[i].x += bullets[i].speed * Math.sin(bullets[i].angle);
+      bullets[i].y -= bullets[i].speed * Math.cos(bullets[i].angle);
+      if (bullets[i].x < 0 || bullets[i].x > canvas.width || bullets[i].y < 0 || bullets[i].y > canvas.height) {
+        bullets.splice(i, 1);
+      }
+    }
+  }
+
+  function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawTank();
+    drawBullets();
+    updateBullets();
+    requestAnimationFrame(gameLoop);
+  }
+
+  $(document).keydown(function(e) {
+    moveTank(e.which);
+    if (e.which === 32) { // spacebar
+      fireBullet();
+    }
+  });
+
+  gameLoop();
+});
+</script>
+
+</body>
+</html>

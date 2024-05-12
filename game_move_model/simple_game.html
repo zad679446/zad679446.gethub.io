@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple HTML Game</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* 隐藏滚动条 */
+    }
+    #player {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background-color: blue;
+    }
+    .enemy {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: red;
+    }
+</style>
+</head>
+<body>
+
+<div id="player"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取player元素
+    var player = document.getElementById('player');
+
+    // 在页面中随机生成敌人
+    function createEnemy() {
+        var enemy = document.createElement('div');
+        enemy.className = 'enemy';
+        enemy.style.left = Math.random() * (window.innerWidth - 30) + 'px';
+        enemy.style.top = Math.random() * (window.innerHeight - 30) + 'px';
+        document.body.appendChild(enemy);
+    }
+
+    // 移动player
+    document.addEventListener('mousemove', function(event) {
+        var mouseX = event.clientX;
+        var mouseY = event.clientY;
+
+        player.style.left = mouseX - 25 + 'px'; // 为了让鼠标在player中心
+        player.style.top = mouseY - 25 + 'px'; // 为了让鼠标在player中心
+    });
+
+    // 检测碰撞
+    function checkCollision() {
+        var playerRect = player.getBoundingClientRect();
+        var enemies = document.getElementsByClassName('enemy');
+
+        for (var i = 0; i < enemies.length; i++) {
+            var enemyRect = enemies[i].getBoundingClientRect();
+
+            if (playerRect.left < enemyRect.right &&
+                playerRect.right > enemyRect.left &&
+                playerRect.top < enemyRect.bottom &&
+                playerRect.bottom > enemyRect.top) {
+                // 如果碰撞，则触发战斗逻辑
+                console.log('Battle!');
+                // 在此添加战斗逻辑
+                // 这里简单地让敌人消失
+                enemies[i].parentNode.removeChild(enemies[i]);
+            }
+        }
+    }
+
+    // 生成初始敌人
+    createEnemy();
+
+    // 每隔一段时间生成新的敌人
+    setInterval(createEnemy, 2000);
+
+    // 每隔一段时间检测碰撞
+    setInterval(checkCollision, 100);
+});
+</script>
+
+</body>
+</html>

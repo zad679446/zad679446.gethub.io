@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Movement</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+        }
+        #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-image: url('img/player_right.gif');
+            background-size: cover;
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            let player = $('#player');
+            let playerWidth = player.width();
+            let playerHeight = player.height();
+            let speed = 3; // 设置移动速度
+            let isBig = false; // 标记图像状态
+        
+            $(document).click(function(event){
+                let mouseX = event.pageX;
+                let mouseY = event.pageY;
+        
+                // 设置移动范围的边界
+                let minX = 0;
+                let minY = 0;
+                let maxX = $(window).width() - playerWidth;
+                let maxY = $(window).height() - playerHeight;
+        
+                // 确保图像不会超出边界
+                let newX = Math.max(minX, Math.min(mouseX - playerWidth / 2, maxX));
+                let newY = Math.max(minY, Math.min(mouseY - playerHeight / 2, maxY));
+        
+                // 停止之前的动画
+                player.stop(true, false);
+        
+                // 计算移动距离
+                let distanceX = newX - parseInt(player.css('left'));
+                let distanceY = newY - parseInt(player.css('top'));
+                
+                // 计算移动方向
+                let directionX = distanceX < 0 ? -1 : 1;
+                let directionY = distanceY < 0 ? -1 : 1;
+        
+                // 判断是否双击了鼠标左键
+                if (event.detail === 2) {
+                    // 切换图像状态
+                    isBig = !isBig;
+        
+                    // 更改背景图片
+                    if (isBig) {
+                        player.css('background-image', 'url(\'img/playerbig_right.gif\')');
+                    } else {
+                        if (directionX < 0) {
+                            player.css('background-image', 'url(\'img/player_left.gif\')');
+                        } else {
+                            player.css('background-image', 'url(\'img/player_right.gif\')');
+                        }
+                    }
+                } else {
+                    // 移动图像
+                    player.animate({
+                        'left': newX + 'px',
+                        'top': newY + 'px'
+                    }, Math.abs(distanceX + distanceY) * speed);
+        
+                    // 更改背景图片
+                    if (Math.abs(distanceX) > Math.abs(distanceY)) {
+                        if (directionX < 0) {
+                            player.css('background-image', 'url(\'img/player_left.gif\')');
+                        } else {
+                            player.css('background-image', 'url(\'img/player_right.gif\')');
+                        }
+                    } 
+                    // else {
+                    //     if (directionY < 0) {
+                    //         player.css('background-image', 'url(\'img/player_up.gif\')');
+                    //     } else {
+                    //         player.css('background-image', 'url(\'img/player_down.gif\')');
+                    //     }
+                    // }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
