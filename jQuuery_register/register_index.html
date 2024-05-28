@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>简单的主页布局</title>
+<style>
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .container {
+    width: 80%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+  }
+  .item {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .item:hover {
+    transform: translateY(-5px);
+  }
+  .item img {
+    width: 100%;
+    height: auto;
+  }
+  .item h2 {
+    margin: 10px 0;
+    padding: 0 10px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  .item p {
+    margin: 0;
+    padding: 0 10px 10px;
+    font-size: 1rem;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="item">
+    <img src="img/register1.png" alt="图片1">
+    <a href="register1.html" target="_blank"><h2>register1</h2></a>
+    <p>这里是项目1的详细介绍，可以放置相关的文本信息。</p>
+  </div>
+  <div class="item">
+    <img src="img/register2.png" alt="图片2">
+    <a href="register2.html" target="_blank"><h2>register2</h2></a>
+    <p>这里是项目2的详细介绍，可以放置相关的文本信息。</p>
+  </div>
+  <div class="item">
+    <img src="img/register3.png" alt="图片3">
+    <a href="register3.html" target="_blank"><h2>register3</h2></a>
+    <p>这里是项目3的详细介绍，可以放置相关的文本信息。</p>
+  </div>
+  <div class="item">
+    <img src="img/register4.png" alt="图片4">
+    <a href="register4.html" target="_blank"><h2>register4</h2></a>
+    <p>这里是项目4的详细介绍，可以放置相关的文本信息。</p>
+  </div>
+</div>
+</body>
+</html>
